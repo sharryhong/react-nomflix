@@ -29,8 +29,8 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 	font-family: 'Noto Sans Mono', monospace, sans-serif;
-	color: ${(props) => props.theme.textColor};
-	background-color: ${(props) => props.theme.bgColor};
+	color: "#222f3e";
+	background-color: '#fff';
 }
 ol, ul {
 	list-style: none;
@@ -54,9 +54,6 @@ a {
 button {
 	font-family: inherit;
 	cursor: pointer;
-	color: ${(props) => props.theme.bgColor};
-  background-color: ${(props) => props.theme.accentColor};
-  border-color: ${(props) => props.theme.accentColor};
 	border-style:none;
 }
 * {
