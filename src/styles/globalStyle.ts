@@ -51,10 +51,13 @@ a {
 	color: inherit;
 	text-decoration: none;
 }
-button {
-	font-family: inherit;
-	cursor: pointer;
-	border-style:none;
+button{
+  background: inherit ; 
+	border:none; box-shadow:none; 
+	border-radius:0; 
+	padding:0; 
+	overflow:visible; 
+	cursor:pointer;
 }
 * {
 	box-sizing: border-box;
