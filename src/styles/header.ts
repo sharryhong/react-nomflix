@@ -25,7 +25,7 @@ export const Logo = styled(motion.svg)`
   fill: ${(props) => props.theme.red};
   path {
     stroke-width: 6px;
-    stroke: white;
+    stroke: #e51012;
   }
 `;
 export const Nav = styled.nav`
@@ -33,6 +33,7 @@ export const Nav = styled.nav`
   align-items: center;
 `;
 export const NavItem = styled(NavLink)`
+  position: relative;
   margin-right: 2em;
   color: ${(props) => props.theme.white.darker};
   transition: color 0.3s ease-in-out;
@@ -45,4 +46,15 @@ export const Search = styled.button`
     height: 25px;
     fill: #fff;
   }
+`;
+export const Circle = styled(motion.span)`
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-color: ${({ theme }) => theme.red};
 `;

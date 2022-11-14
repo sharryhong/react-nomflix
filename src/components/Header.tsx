@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import * as S from "styles/header";
 
 const logoVariants = {
@@ -11,6 +11,8 @@ const logoVariants = {
 };
 
 function Header() {
+  const { pathname } = useLocation();
+
   return (
     <S.Wrapper>
       <S.Column>
@@ -28,8 +30,12 @@ function Header() {
           </Link>
         </h1>
         <S.Nav>
-          <S.NavItem to="/">Movies</S.NavItem>
-          <S.NavItem to="/tv">TV Shows</S.NavItem>
+          <S.NavItem to="/">
+            Movies {pathname === "/" && <S.Circle layoutId="circle" />}
+          </S.NavItem>
+          <S.NavItem to="/tv">
+            TV Shows {pathname === "/tv" && <S.Circle layoutId="circle" />}
+          </S.NavItem>
         </S.Nav>
       </S.Column>
       <S.Column>
