@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export const Wrapper = styled.header`
   display: flex;
@@ -18,6 +18,9 @@ export const Column = styled.div`
   display: flex;
   align-items: center;
   gap: 2em;
+`;
+export const Home = styled(Link)`
+  display: block;
 `;
 export const Logo = styled(motion.svg)`
   width: 5.94em;
@@ -41,12 +44,6 @@ export const NavItem = styled(NavLink)`
     color: ${(props) => props.theme.white.lighter};
   }
 `;
-export const Search = styled.button`
-  svg {
-    height: 25px;
-    fill: #fff;
-  }
-`;
 export const Circle = styled(motion.span)`
   position: absolute;
   width: 5px;
@@ -57,4 +54,23 @@ export const Circle = styled(motion.span)`
   right: 0;
   margin: 0 auto;
   background-color: ${({ theme }) => theme.red};
+`;
+export const Search = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
+export const SearchButton = styled.button`
+  svg {
+    height: 25px;
+    fill: #fff;
+  }
+`;
+export const Input = styled(motion.input)`
+  display: flex;
+  align-items: center;
+  transform-origin: right center;
+  position: absolute;
+  left: -170px;
+  padding: 7px 12px;
 `;
