@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import Main from "./components/Main";
+import Home from "./components/Home";
 import Search from "./components/Search";
 import Tv from "./components/Tv";
 
 function router() {
   return (
     <Routes>
-      <Route path="/" element={<Main />} />
+      <Route path="/" element={<Home />} />
       <Route path="/tv" element={<Tv />} />
       <Route path="/search" element={<Search />} />
     </Routes>

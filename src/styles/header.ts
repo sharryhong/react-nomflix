@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Link, NavLink } from "react-router-dom";
 
-export const Wrapper = styled.header`
+export const Container = styled(motion.header)`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,7 +12,7 @@ export const Wrapper = styled.header`
   width: 100%;
   padding: 1.25rem 2.5rem;
   color: #fff;
-  background-color: ${(props) => props.theme.black.veryDark};
+  /* background-color: ${(props) => props.theme.black.veryDark}; */
 `;
 export const Column = styled.div`
   display: flex;
