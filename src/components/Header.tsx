@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useAnimationControls } from "framer-motion";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import * as S from "styles/header";
@@ -13,8 +13,14 @@ const logoVariants = {
 
 function Header() {
   const { pathname } = useLocation();
+  const controls = useAnimationControls();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
+  const toggleSearch = () => {
+    setIsSearchOpen((prev) => !prev);
+    isSearchOpen
+      ? controls.start({ scaleX: 0 })
+      : controls.start({ scaleX: 1 });
+  };
 
   return (
     <S.Wrapper>
@@ -44,7 +50,7 @@ function Header() {
       <S.Search>
         <S.SearchButton onClick={toggleSearch}>
           <motion.svg
-            animate={{ x: isSearchOpen ? -200 : 0 }}
+            animate={{ x: isSearchOpen ? -187 : 0 }}
             transition={{ type: "linear" }}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
@@ -53,7 +59,8 @@ function Header() {
           </motion.svg>
         </S.SearchButton>
         <S.Input
-          animate={{ scaleX: isSearchOpen ? 1 : 0 }}
+          animate={controls}
+          initial={{ scaleX: 0 }}
           transition={{ type: "linear" }}
           placeholder="Search for movie or TV show"
         />

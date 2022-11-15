@@ -12,7 +12,7 @@ export const Wrapper = styled.header`
   width: 100%;
   padding: 1.25rem 2.5rem;
   color: #fff;
-  background-color: #000;
+  background-color: ${(props) => props.theme.black.veryDark};
 `;
 export const Column = styled.div`
   display: flex;
@@ -61,16 +61,21 @@ export const Search = styled.div`
   align-items: center;
 `;
 export const SearchButton = styled.button`
+  position: absolute;
+  z-index: 10;
+  right: 0;
   svg {
     height: 25px;
     fill: #fff;
   }
 `;
 export const Input = styled(motion.input)`
-  display: flex;
-  align-items: center;
   transform-origin: right center;
   position: absolute;
-  left: -170px;
-  padding: 7px 12px;
+  width: 230px;
+  left: -220px;
+  padding: 10px 12px 10px 40px;
+  color: ${(props) => props.theme.white.darker};
+  background-color: ${(props) => props.theme.black.lighter};
+  border: 1px solid ${(props) => props.theme.white.darker};
 `;
