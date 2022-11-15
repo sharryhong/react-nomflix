@@ -3,6 +3,11 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import * as S from "styles/header";
 
+const headerVariants = {
+  top: { backgroundColor: "rgba(0,0,0,0)" },
+  scroll: { backgroundColor: "rgba(0,0,0,1)" },
+};
+
 const logoVariants = {
   nomal: { fillOpacity: 1 },
   active: {
@@ -13,30 +18,31 @@ const logoVariants = {
 
 function Header() {
   const { pathname } = useLocation();
-  const controlsHeader = useAnimationControls();
-  const controlsSearch = useAnimationControls();
+  const headerControls = useAnimationControls();
+  const searchControls = useAnimationControls();
   const { scrollY } = useScroll();
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const toggleSearch = () => {
     setIsSearchOpen((prev) => !prev);
     isSearchOpen
-      ? controlsSearch.start({ scaleX: 0 })
-      : controlsSearch.start({ scaleX: 1 });
+      ? searchControls.start({ scaleX: 0 })
+      : searchControls.start({ scaleX: 1 });
   };
 
   useEffect(() => {
     return scrollY.onChange((latest) => {
       latest > 80
-        ? controlsHeader.start({ backgroundColor: "rgba(0,0,0,1)" })
-        : controlsHeader.start({ backgroundColor: "rgba(0,0,0,0)" });
+        ? headerControls.start("scroll")
+        : headerControls.start("top");
     });
-  }, [controlsHeader, scrollY]);
+  }, [headerControls, scrollY]);
 
   return (
     <S.Container
-      animate={controlsHeader}
-      initial={{ backgroundColor: "rgba(0,0,0,0)" }}
+      variants={headerVariants}
+      animate={headerControls}
+      initial="top"
     >
       <S.Column>
         <h1>
@@ -73,7 +79,7 @@ function Header() {
           </motion.svg>
         </S.SearchButton>
         <S.Input
-          animate={controlsSearch}
+          animate={searchControls}
           initial={{ scaleX: 0 }}
           transition={{ type: "linear" }}
           placeholder="Search for movie or TV show"
