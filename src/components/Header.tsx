@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { motion, useAnimationControls, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -29,14 +30,16 @@ function Header() {
       ? searchControls.start({ scaleX: 0 })
       : searchControls.start({ scaleX: 1 });
   };
+  const animateScrollY = useCallback(() => {
+    scrollY.get() > 80
+      ? headerControls.start("scroll")
+      : headerControls.start("top");
+  }, [headerControls, scrollY]);
 
   useEffect(() => {
-    return scrollY.onChange((latest) => {
-      latest > 80
-        ? headerControls.start("scroll")
-        : headerControls.start("top");
-    });
-  }, [headerControls, scrollY]);
+    animateScrollY();
+    scrollY.onChange(() => animateScrollY());
+  }, [animateScrollY, scrollY]);
 
   return (
     <S.Container
@@ -60,13 +63,13 @@ function Header() {
         </h1>
         <S.Nav>
           <S.NavItem to={`${process.env.PUBLIC_URL}`}>
-            Movies{" "}
+            Movies
             {pathname === `${process.env.PUBLIC_URL}` && (
               <S.Circle layoutId="circle" />
             )}
           </S.NavItem>
           <S.NavItem to={`${process.env.PUBLIC_URL}/tv`}>
-            TV Shows{" "}
+            TV Shows
             {pathname === `${process.env.PUBLIC_URL}/tv` && (
               <S.Circle layoutId="circle" />
             )}
