@@ -29,8 +29,8 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 	font-family: 'Noto Sans Mono', monospace, sans-serif;
-	color: "#222f3e";
-	background-color: '#fff';
+	color: ${(props) => props.theme.white.darker};
+	background-color: ${(props) => props.theme.black.darker};
 }
 ol, ul {
 	list-style: none;

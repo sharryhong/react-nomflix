@@ -28,7 +28,7 @@ export const Logo = styled(motion.svg)`
   fill: ${(props) => props.theme.red};
   path {
     stroke-width: 6px;
-    stroke: #e51012;
+    stroke: ${(props) => props.theme.red};
   }
 `;
 export const Nav = styled.nav`
