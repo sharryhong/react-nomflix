@@ -18,6 +18,13 @@ jobs:
         with:
           node-version: "14"
 
+      - name: clean cache
+        run: npm cache clean --force
+      - name: install
+        run: npm ci
+      - name: npm install
+        run: npm install
+
       # React 프로젝트를 빌드합니다.
       - name: Build React Application
         run: npm run build
