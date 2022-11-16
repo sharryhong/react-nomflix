@@ -64,9 +64,8 @@ function Header() {
         <S.Nav>
           <S.NavItem to={`${process.env.PUBLIC_URL}`}>
             Movies
-            {pathname === `${process.env.PUBLIC_URL}` && (
-              <S.Circle layoutId="circle" />
-            )}
+            {(pathname === `${process.env.PUBLIC_URL}` ||
+              `${process.env.PUBLIC_URL}/`) && <S.Circle layoutId="circle" />}
           </S.NavItem>
           <S.NavItem to={`${process.env.PUBLIC_URL}/tv`}>
             TV Shows

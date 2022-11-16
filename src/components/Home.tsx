@@ -4,6 +4,7 @@ import { getMovies, IGetMovieResult } from "api";
 import * as S from "styles/home";
 import Loader from "./Loader";
 import { makeImagePath } from "utils";
+import Slider from "./Slider";
 
 function Home() {
   const { data, isLoading } = useQuery<IGetMovieResult>(
@@ -23,6 +24,7 @@ function Home() {
             <S.Title>{data?.results[0].title}</S.Title>
             <S.Overview>{data?.results[0].overview}</S.Overview>
           </S.Banner>
+          <Slider />
         </>
       )}
     </S.Container>
