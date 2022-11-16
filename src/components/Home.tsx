@@ -24,7 +24,7 @@ function Home() {
             <S.Title>{data?.results[0].title}</S.Title>
             <S.Overview>{data?.results[0].overview}</S.Overview>
           </S.Banner>
-          <Slider />
+          {data && <Slider movies={data?.results.slice(1)} />}
         </>
       )}
     </S.Container>

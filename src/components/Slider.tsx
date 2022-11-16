@@ -1,6 +1,8 @@
+import { IMovie } from "api";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
+import { makeImagePath } from "utils";
 
 const Container = styled.div`
   position: relative;
@@ -13,10 +15,13 @@ const Row = styled(motion.ul)`
   position: absolute;
   width: 100%;
 `;
-const Movie = styled(motion.li)`
-  background-color: yellow;
-  height: 200px;
-  color: red;
+const Movie = styled(motion.li)<{ bgphoto: string }>`
+  width: 100%;
+  height: 0;
+  padding-top: 140%;
+  background-image: url(${(props) => props.bgphoto});
+  background-size: cover;
+  background-position: center center;
 `;
 
 const rowVariants = {
@@ -25,15 +30,24 @@ const rowVariants = {
   exit: { x: -window.innerWidth - 5 },
 };
 
-function Slider() {
+interface IProps {
+  movies: IMovie[];
+}
+
+function Slider({ movies }: IProps) {
+  const offset = 6;
+  const totalMovies = movies.length;
+  const maxIndex = Math.floor(totalMovies / offset) - 1;
+
   const [isClickable, setIsClickable] = useState(true);
   const [index, setIndex] = useState(0);
   const increaseIndex = () => {
     if (!isClickable) return;
     toggleClickable();
-    setIndex((prev) => prev + 1);
+    setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
   };
   const toggleClickable = () => setIsClickable((prev) => !prev);
+
   return (
     <Container onClick={increaseIndex}>
       <AnimatePresence initial={false} onExitComplete={toggleClickable}>
@@ -45,8 +59,11 @@ function Slider() {
           transition={{ type: "tween", duration: 1 }}
           key={index}
         >
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <Movie key={i}>{i}</Movie>
+          {movies.slice(index * offset, index * offset + offset).map((item) => (
+            <Movie
+              key={item.id}
+              bgphoto={makeImagePath(item.poster_path, "w300")}
+            />
           ))}
         </Row>
       </AnimatePresence>
