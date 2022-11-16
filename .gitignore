@@ -25,3 +25,5 @@ package-lock.json
 
 # Secret file
 .env
+.env.development
+.env.production
