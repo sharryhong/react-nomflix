@@ -1,6 +1,13 @@
 name: CI
 
-on: [push]
+on:
+  # 하단 코드에 따라 develop 브랜치에 Push 또는 Pull Request 이벤트가 발생한 경우에 Workflow가 실행됩니다.
+  # 만약 브랜치 구분 없이 이벤트를 지정하고 싶을 경우에는 단순히 아래와 같이 작성도 가능합니다.
+  # on: [push, pull_request]
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
 
 jobs:
   deployment:
@@ -17,9 +24,16 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "14"
+          
+      # Github Repository Secrets를 통해 환경 변수 파일을 생성합니다.
+      - name: Generate Environment Variables File for Production
+        run: |
+          echo "REACT_APP_API_KEY=$REACT_APP_API_KEY" >> .env.production
+          echo "REACT_APP_BASE_URL=$REACT_APP_BASE_URL" >> .env.production
+        env:
+          REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
+          REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
 
-      - name: clean cache
-        run: npm cache clean --force
       - name: npm install
         run: npm install
 
