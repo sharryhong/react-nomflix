@@ -46,7 +46,7 @@ function Header() {
     >
       <S.Column>
         <h1>
-          <S.Home to="/">
+          <S.Home to={`${process.env.PUBLIC_URL}`}>
             <S.Logo
               variants={logoVariants}
               initial="normal"
@@ -59,11 +59,17 @@ function Header() {
           </S.Home>
         </h1>
         <S.Nav>
-          <S.NavItem to="/">
-            Movies {pathname === "/" && <S.Circle layoutId="circle" />}
+          <S.NavItem to={`${process.env.PUBLIC_URL}`}>
+            Movies{" "}
+            {pathname === `${process.env.PUBLIC_URL}` && (
+              <S.Circle layoutId="circle" />
+            )}
           </S.NavItem>
-          <S.NavItem to="/tv">
-            TV Shows {pathname === "/tv" && <S.Circle layoutId="circle" />}
+          <S.NavItem to={`${process.env.PUBLIC_URL}/tv`}>
+            TV Shows{" "}
+            {pathname === `${process.env.PUBLIC_URL}/tv` && (
+              <S.Circle layoutId="circle" />
+            )}
           </S.NavItem>
         </S.Nav>
       </S.Column>
