@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/react-nomflix/static/js/main.9b70a1d7.js",
+    "main.js": "/react-nomflix/static/js/main.9db576f8.js",
     "index.html": "/react-nomflix/index.html",
-    "main.9b70a1d7.js.map": "/react-nomflix/static/js/main.9b70a1d7.js.map"
+    "main.9db576f8.js.map": "/react-nomflix/static/js/main.9db576f8.js.map"
   },
   "entrypoints": [
-    "static/js/main.9b70a1d7.js"
+    "static/js/main.9db576f8.js"
   ]
 }
