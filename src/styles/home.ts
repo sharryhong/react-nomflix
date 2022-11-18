@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  height: 200vh;
+`;
 export const Banner = styled.div<{ bgPhoto: string }>`
   display: flex;
   flex-direction: column;
