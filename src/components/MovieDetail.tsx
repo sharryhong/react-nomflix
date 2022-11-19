@@ -1,6 +1,8 @@
-import { IMovie } from "api";
+import { getDetailMovie, IGetMovieResult, IMovie } from "api";
 import { makeImagePath } from "utils";
 import styled from "styled-components";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "./Loader";
 
 const Cover = styled.div<{ bgphoto: string }>`
   width: 100%;
@@ -18,7 +20,7 @@ const Title = styled.h2`
 `;
 const Overview = styled.p`
   padding: 0.7em;
-  font-size: 0.9rem;
+  line-height: 1.2;
 `;
 interface IProps {
   id: string;
@@ -26,15 +28,22 @@ interface IProps {
 }
 
 function MovieDetail({ id, selectedMovie }: IProps) {
+  const { data } = useQuery<IMovie>(["movieDetail"], () => getDetailMovie(id));
+
   return (
     <>
-      {selectedMovie && (
-        <>
-          <Cover bgphoto={makeImagePath(selectedMovie.backdrop_path, "w500")} />
-          <Title>{selectedMovie.title}</Title>
-          <Overview>{selectedMovie.overview}</Overview>
-        </>
-      )}
+      <Cover
+        bgphoto={makeImagePath(
+          selectedMovie
+            ? selectedMovie.backdrop_path
+            : data?.backdrop_path || "",
+          "w500"
+        )}
+      />
+      <Title>{selectedMovie ? selectedMovie.title : data?.title || ""}</Title>
+      <Overview>
+        {selectedMovie ? selectedMovie.overview : data?.overview || ""}
+      </Overview>
     </>
   );
 }

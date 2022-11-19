@@ -7,6 +7,7 @@ const Overlay = styled(motion.div)`
   justify-content: center;
   align-items: center;
   position: fixed;
+  z-index: 20;
   top: 0;
   right: 0;
   left: 0;
@@ -20,6 +21,13 @@ const ModalBox = styled(motion.div)`
   border-radius: 0.5em;
   overflow: hidden;
   background-color: ${(props) => props.theme.black.lighter};
+`;
+const Button = styled.button`
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 30px;
+  background: none;
 `;
 
 interface IProps {

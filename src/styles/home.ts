@@ -9,7 +9,7 @@ export const Banner = styled.div<{ bgPhoto: string }>`
   justify-content: center;
   height: 100vh;
   padding: 3em;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1)),
     url(${(props) => props.bgPhoto});
   background-size: cover;
 `;

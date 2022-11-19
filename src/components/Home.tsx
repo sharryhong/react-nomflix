@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getMovies, IGetMovieResult, IMovie } from "api";
+import { getNowPlayingMovies, IGetMovieResult, IMovie } from "api";
 import * as S from "styles/home";
 import Loader from "./Loader";
 import { makeImagePath } from "utils";
@@ -13,7 +13,7 @@ function Home() {
   const { movieId } = useParams();
   const { data, isLoading } = useQuery<IGetMovieResult>(
     ["movies", "nowPlaying"],
-    getMovies
+    getNowPlayingMovies
   );
   const [selectedMovie, setSelectedMovie] = useState<IMovie>();
   const selectMovie = (item: IMovie) => {
@@ -33,7 +33,11 @@ function Home() {
             <S.Overview>{data?.results[0].overview}</S.Overview>
           </S.Banner>
           {data && (
-            <Slider movies={data?.results.slice(1)} selectMovie={selectMovie} />
+            <Slider
+              title="Now Playing"
+              movies={data?.results.slice(1)}
+              selectMovie={selectMovie}
+            />
           )}
           {movieId && (
             <Modal isShow={!!movieId} id={movieId}>
