@@ -61,10 +61,10 @@ const InfoVariant = {
 
 interface IProps {
   movies: IMovie[];
-  childToParent: (item: IMovie) => void;
+  selectMovie: (item: IMovie) => void;
 }
 
-function Slider({ movies, childToParent }: IProps) {
+function Slider({ movies, selectMovie }: IProps) {
   const navigate = useNavigate();
 
   const offset = 6;
@@ -80,7 +80,7 @@ function Slider({ movies, childToParent }: IProps) {
   };
   const toggleClickable = () => setIsClickable((prev) => !prev);
   const onClickMovie = (item: IMovie) => {
-    childToParent(item);
+    selectMovie(item);
     navigate(`${process.env.PUBLIC_URL}/movies/${String(item.id)}`);
   };
 

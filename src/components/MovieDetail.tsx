@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Cover = styled.div<{ bgphoto: string }>`
   width: 100%;
   height: 280px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)),
     url(${(props) => props.bgphoto});
   background-size: cover;
   background-position: center center;

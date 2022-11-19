@@ -16,7 +16,7 @@ function Home() {
     getMovies
   );
   const [selectedMovie, setSelectedMovie] = useState<IMovie>();
-  const childToParent = (item: IMovie) => {
+  const selectMovie = (item: IMovie) => {
     setSelectedMovie(item);
   };
 
@@ -33,10 +33,7 @@ function Home() {
             <S.Overview>{data?.results[0].overview}</S.Overview>
           </S.Banner>
           {data && (
-            <Slider
-              movies={data?.results.slice(1)}
-              childToParent={childToParent}
-            />
+            <Slider movies={data?.results.slice(1)} selectMovie={selectMovie} />
           )}
           {movieId && (
             <Modal isShow={!!movieId} id={movieId}>
