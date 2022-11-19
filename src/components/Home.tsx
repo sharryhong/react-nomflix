@@ -7,6 +7,7 @@ import { makeImagePath } from "utils";
 import Slider from "./Slider";
 import { useParams } from "react-router-dom";
 import Modal from "./Modal";
+import MovieDetail from "./MovieDetail";
 
 function Home() {
   const { movieId } = useParams();
@@ -30,7 +31,7 @@ function Home() {
           {data && <Slider movies={data?.results.slice(1)} />}
           {movieId && (
             <Modal isShow={!!movieId} id={movieId}>
-              okok
+              <MovieDetail id={movieId} />
             </Modal>
           )}
         </>
