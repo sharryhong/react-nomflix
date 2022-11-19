@@ -1,6 +1,7 @@
 import { IMovie } from "api";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { makeImagePath } from "utils";
 
@@ -22,6 +23,7 @@ const Movie = styled(motion.li)<{ bgphoto: string }>`
   background-image: url(${(props) => props.bgphoto});
   background-size: cover;
   background-position: center center;
+  cursor: pointer;
   &:first-child {
     transform-origin: center left;
   }
@@ -62,6 +64,8 @@ interface IProps {
 }
 
 function Slider({ movies }: IProps) {
+  const navigate = useNavigate();
+
   const offset = 6;
   const totalMovies = movies.length;
   const maxIndex = Math.floor(totalMovies / offset) - 1;
@@ -74,9 +78,12 @@ function Slider({ movies }: IProps) {
     setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
   };
   const toggleClickable = () => setIsClickable((prev) => !prev);
+  const onClickMovie = (id: number) => {
+    navigate(`${process.env.PUBLIC_URL}/movies/${String(id)}`);
+  };
 
   return (
-    <Container onClick={increaseIndex}>
+    <Container>
       <AnimatePresence initial={false} onExitComplete={toggleClickable}>
         <Row
           variants={rowVariants}
@@ -88,6 +95,7 @@ function Slider({ movies }: IProps) {
         >
           {movies.slice(index * offset, index * offset + offset).map((item) => (
             <Movie
+              layoutId={`${item.id}`}
               key={item.id}
               bgphoto={makeImagePath(
                 item.backdrop_path || item.poster_path,
@@ -97,6 +105,7 @@ function Slider({ movies }: IProps) {
               initial="initial"
               whileHover="hover"
               transition={{ type: "tween" }}
+              onClick={() => onClickMovie(item.id)}
             >
               <Info variants={InfoVariant}>
                 <h3>{item.title}</h3>
