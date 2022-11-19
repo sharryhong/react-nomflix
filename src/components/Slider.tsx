@@ -61,9 +61,10 @@ const InfoVariant = {
 
 interface IProps {
   movies: IMovie[];
+  childToParent: (item: IMovie) => void;
 }
 
-function Slider({ movies }: IProps) {
+function Slider({ movies, childToParent }: IProps) {
   const navigate = useNavigate();
 
   const offset = 6;
@@ -78,8 +79,9 @@ function Slider({ movies }: IProps) {
     setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
   };
   const toggleClickable = () => setIsClickable((prev) => !prev);
-  const onClickMovie = (id: number) => {
-    navigate(`${process.env.PUBLIC_URL}/movies/${String(id)}`);
+  const onClickMovie = (item: IMovie) => {
+    childToParent(item);
+    navigate(`${process.env.PUBLIC_URL}/movies/${String(item.id)}`);
   };
 
   return (
@@ -105,7 +107,7 @@ function Slider({ movies }: IProps) {
               initial="initial"
               whileHover="hover"
               transition={{ type: "tween" }}
-              onClick={() => onClickMovie(item.id)}
+              onClick={() => onClickMovie(item)}
             >
               <Info variants={InfoVariant}>
                 <h3>{item.title}</h3>

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getMovies, IGetMovieResult } from "api";
+import { getMovies, IGetMovieResult, IMovie } from "api";
 import * as S from "styles/home";
 import Loader from "./Loader";
 import { makeImagePath } from "utils";
@@ -15,6 +15,10 @@ function Home() {
     ["movies", "nowPlaying"],
     getMovies
   );
+  const [selectedMovie, setSelectedMovie] = useState<IMovie>();
+  const childToParent = (item: IMovie) => {
+    setSelectedMovie(item);
+  };
 
   return (
     <S.Container>
@@ -28,10 +32,15 @@ function Home() {
             <S.Title>{data?.results[0].title}</S.Title>
             <S.Overview>{data?.results[0].overview}</S.Overview>
           </S.Banner>
-          {data && <Slider movies={data?.results.slice(1)} />}
+          {data && (
+            <Slider
+              movies={data?.results.slice(1)}
+              childToParent={childToParent}
+            />
+          )}
           {movieId && (
             <Modal isShow={!!movieId} id={movieId}>
-              <MovieDetail id={movieId} />
+              <MovieDetail id={movieId} selectedMovie={selectedMovie} />
             </Modal>
           )}
         </>

@@ -15,9 +15,11 @@ const Overlay = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.7);
 `;
 const ModalBox = styled(motion.div)`
-  width: 80vw;
-  height: 80vh;
-  background-color: yellow;
+  position: relative;
+  width: 500px;
+  border-radius: 0.5em;
+  overflow: hidden;
+  background-color: ${(props) => props.theme.black.lighter};
 `;
 
 interface IProps {
