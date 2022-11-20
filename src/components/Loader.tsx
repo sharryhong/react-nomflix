@@ -12,6 +12,8 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  width: 100%;
   height: 100vh;
 `;
 const Circle = styled.div`

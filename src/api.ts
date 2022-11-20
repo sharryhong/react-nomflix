@@ -7,6 +7,8 @@ export interface IMovie {
   poster_path: string;
   title: string;
   overview: string;
+  release_date: string;
+  vote_average: number;
 }
 export interface IGetMovieResult {
   dates: {
@@ -17,8 +19,13 @@ export interface IGetMovieResult {
   results: IMovie[];
 }
 
-export const getMovies = () => {
-  return fetch(`${BASE_URL}/movie/now_playing?api_key=${API_KEY}`).then(
-    (response) => response.json()
+export const getNowPlayingMovies = async () => {
+  const response = await fetch(
+    `${BASE_URL}/movie/now_playing?api_key=${API_KEY}`
   );
+  return await response.json();
+};
+export const getDetailMovie = async (id: string) => {
+  const response = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
+  return await response.json();
 };

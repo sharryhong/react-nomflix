@@ -6,7 +6,7 @@ function Search() {
   const searchParams = new URLSearchParams(search);
   const keyword = searchParams.get("keyword");
 
-  return <div>Search</div>;
+  return <div>{keyword}</div>;
 }
 
 export default Search;

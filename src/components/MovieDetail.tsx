@@ -1,8 +1,7 @@
-import { getDetailMovie, IGetMovieResult, IMovie } from "api";
+import { getDetailMovie, IMovie } from "api";
 import { makeImagePath } from "utils";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
-import Loader from "./Loader";
 
 const Cover = styled.div<{ bgphoto: string }>`
   width: 100%;
@@ -17,6 +16,16 @@ const Title = styled.h2`
   margin-left: 0.5em;
   top: 210px;
   font-size: 1.7rem;
+`;
+const Info = styled.div`
+  display: flex;
+  padding: 0.8em 0.8em 0;
+  font-size: 0.8rem;
+  span + span:before {
+    content: "|";
+    margin: 0 0.5em;
+    color: rgba(255, 255, 255, 0.5);
+  }
 `;
 const Overview = styled.p`
   padding: 0.7em;
@@ -41,6 +50,18 @@ function MovieDetail({ id, selectedMovie }: IProps) {
         )}
       />
       <Title>{selectedMovie ? selectedMovie.title : data?.title || ""}</Title>
+      <Info>
+        <span>
+          {selectedMovie
+            ? selectedMovie.release_date
+            : data?.release_date || ""}
+        </span>
+        <span>
+          {selectedMovie
+            ? selectedMovie.vote_average.toFixed(1)
+            : data?.vote_average.toFixed(1) || ""}
+        </span>
+      </Info>
       <Overview>
         {selectedMovie ? selectedMovie.overview : data?.overview || ""}
       </Overview>

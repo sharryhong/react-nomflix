@@ -40,7 +40,7 @@ function SearchForm() {
         </motion.svg>
       </S.SearchButton>
       <S.Input
-        {...register("keyword", { required: true, minLength: 2 })}
+        {...register("keyword", { required: true })}
         animate={searchControls}
         initial={{ scaleX: 0 }}
         transition={{ type: "linear" }}

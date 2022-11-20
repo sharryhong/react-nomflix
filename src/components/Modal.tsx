@@ -22,13 +22,6 @@ const ModalBox = styled(motion.div)`
   overflow: hidden;
   background-color: ${(props) => props.theme.black.lighter};
 `;
-const Button = styled.button`
-  position: absolute;
-  top: 7px;
-  right: 7px;
-  width: 30px;
-  background: none;
-`;
 
 interface IProps {
   isShow: boolean;
