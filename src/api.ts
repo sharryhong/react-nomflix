@@ -40,3 +40,7 @@ export const getPopularMovies = async () => {
   const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
   return await response.json();
 };
+export const getUpcomingMovies = async () => {
+  const response = await fetch(`${BASE_URL}/movie/upcoming?api_key=${API_KEY}`);
+  return await response.json();
+};

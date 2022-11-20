@@ -52,8 +52,17 @@ const Button = styled(motion.button)`
   color: white;
   top: calc(50% + 18px);
   transform: translateY(-50%);
-  right: 12px;
+  z-index: 20;
   width: 30px;
+  svg {
+    filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+  }
+`;
+const PrevButton = styled(Button)`
+  left: 12px;
+`;
+const NextButton = styled(Button)`
+  right: 12px;
 `;
 const Popular = styled.span`
   position: absolute;
@@ -63,11 +72,20 @@ const Popular = styled.span`
   -webkit-text-fill-color: rgba(0, 0, 0, 0.2);
 `;
 
+interface IVariants {
+  isPrev: Boolean;
+}
+
 const rowVariants = {
-  hidden: { x: window.innerWidth + 5 },
+  hidden: ({ isPrev }: IVariants) => ({
+    x: isPrev ? -(window.innerWidth + 5) : window.innerWidth + 5,
+  }),
   visible: { x: 0 },
-  exit: { x: -window.innerWidth - 5 },
+  exit: ({ isPrev }: IVariants) => ({
+    x: isPrev ? window.innerWidth + 5 : -(window.innerWidth + 5),
+  }),
 };
+
 const movieVariants = {
   initial: { scale: 1 },
   hover: {
@@ -99,10 +117,19 @@ function Slider({ title, ranking, movies, selectMovie }: IProps) {
 
   const [isClickable, setIsClickable] = useState(true);
   const [index, setIndex] = useState(0);
+  const [isPrev, setIsPrev] = useState(false);
+
   const increaseIndex = () => {
     if (!isClickable) return;
+    setIsPrev(false);
     toggleClickable();
     setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+  };
+  const decreaseIndex = () => {
+    if (!isClickable) return;
+    setIsPrev(true);
+    toggleClickable();
+    setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
   };
   const toggleClickable = () => setIsClickable((prev) => !prev);
   const onClickMovie = (item: IMovie, title: string) => {
@@ -113,9 +140,32 @@ function Slider({ title, ranking, movies, selectMovie }: IProps) {
   return (
     <Container>
       <Title>{title}</Title>
-      <AnimatePresence initial={false} onExitComplete={toggleClickable}>
+      <PrevButton onClick={decreaseIndex}>
+        {/* <motion.svg
+          fill="rgba(255,255,255,0.5)"
+          whileHover={{ fill: "rgba(255,255,255,0.8)" }}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        >
+          <path d="M0 256C0 397.4 114.6 512 256 512s256-114.6 256-256S397.4 0 256 0S0 114.6 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z" />
+        </motion.svg> */}
+        <motion.svg
+          fill="rgba(255,255,255,0.5)"
+          whileHover={{ fill: "rgba(255,255,255,0.8)" }}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        >
+          <path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256S114.6 512 256 512s256-114.6 256-256zM271 135c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-87 87 87 87c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L167 273c-9.4-9.4-9.4-24.6 0-33.9L271 135z" />
+        </motion.svg>
+      </PrevButton>
+      <AnimatePresence
+        initial={false}
+        custom={{ isPrev }}
+        onExitComplete={toggleClickable}
+      >
         <Row
           variants={rowVariants}
+          custom={{ isPrev }}
           initial="hidden"
           animate="visible"
           exit="exit"
@@ -148,7 +198,7 @@ function Slider({ title, ranking, movies, selectMovie }: IProps) {
             ))}
         </Row>
       </AnimatePresence>
-      <Button onClick={increaseIndex}>
+      <NextButton onClick={increaseIndex}>
         <motion.svg
           fill="rgba(255,255,255,0.5)"
           whileHover={{ fill: "rgba(255,255,255,0.8)" }}
@@ -157,7 +207,7 @@ function Slider({ title, ranking, movies, selectMovie }: IProps) {
         >
           <path d="M0 256C0 397.4 114.6 512 256 512s256-114.6 256-256S397.4 0 256 0S0 114.6 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z" />
         </motion.svg>
-      </Button>
+      </NextButton>
     </Container>
   );
 }

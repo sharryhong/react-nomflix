@@ -6,6 +6,7 @@ import {
   IGetMovieResult,
   IMovie,
   getPopularMovies,
+  getUpcomingMovies,
 } from "api";
 import * as S from "styles/home";
 import Loader from "./Loader";
@@ -28,6 +29,10 @@ function Home() {
   const { data: popularData } = useQuery<IGetMovieResult>(
     ["popular"],
     getPopularMovies
+  );
+  const { data: upcomingData } = useQuery<IGetMovieResult>(
+    ["upcoming"],
+    getUpcomingMovies
   );
 
   const [selectedMovie, setSelectedMovie] = useState<IMovie>();
@@ -70,6 +75,13 @@ function Home() {
             <Slider
               title="Top Rated"
               movies={topRatedData?.results}
+              selectMovie={selectMovie}
+            />
+          )}
+          {upcomingData && (
+            <Slider
+              title="Upcoming"
+              movies={upcomingData?.results}
               selectMovie={selectMovie}
             />
           )}
