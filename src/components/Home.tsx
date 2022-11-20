@@ -5,6 +5,7 @@ import {
   getNowPlayingMovies,
   IGetMovieResult,
   IMovie,
+  getPopularMovies,
 } from "api";
 import * as S from "styles/home";
 import Loader from "./Loader";
@@ -24,10 +25,16 @@ function Home() {
     ["topRated"],
     getTopRatedMovies
   );
+  const { data: popularData } = useQuery<IGetMovieResult>(
+    ["popular"],
+    getPopularMovies
+  );
 
   const [selectedMovie, setSelectedMovie] = useState<IMovie>();
-  const selectMovie = (item: IMovie) => {
+  const [selectedTitle, setSelectedTitle] = useState<string>();
+  const selectMovie = (item: IMovie, title: string) => {
     setSelectedMovie(item);
+    setSelectedTitle(title);
   };
 
   return (
@@ -51,6 +58,14 @@ function Home() {
               selectMovie={selectMovie}
             />
           )}
+          {popularData && (
+            <Slider
+              title="Popular"
+              ranking
+              movies={popularData?.results}
+              selectMovie={selectMovie}
+            />
+          )}
           {topRatedData && (
             <Slider
               title="Top Rated"
@@ -59,7 +74,7 @@ function Home() {
             />
           )}
           {movieId && (
-            <Modal isShow={!!movieId} id={movieId}>
+            <Modal isShow={!!movieId} id={`${selectedTitle}${movieId}`}>
               <MovieDetail id={movieId} selectedMovie={selectedMovie} />
             </Modal>
           )}

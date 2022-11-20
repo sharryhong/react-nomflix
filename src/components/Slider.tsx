@@ -55,6 +55,13 @@ const Button = styled(motion.button)`
   right: 12px;
   width: 30px;
 `;
+const Popular = styled.span`
+  position: absolute;
+  bottom: -15px;
+  font-size: 7rem;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
+  -webkit-text-fill-color: rgba(0, 0, 0, 0.2);
+`;
 
 const rowVariants = {
   hidden: { x: window.innerWidth + 5 },
@@ -78,11 +85,12 @@ const InfoVariant = {
 
 interface IProps {
   title?: string;
+  ranking?: boolean;
   movies: IMovie[];
-  selectMovie: (item: IMovie) => void;
+  selectMovie: (item: IMovie, title: string) => void;
 }
 
-function Slider({ title, movies, selectMovie }: IProps) {
+function Slider({ title, ranking, movies, selectMovie }: IProps) {
   const navigate = useNavigate();
 
   const offset = 6;
@@ -97,8 +105,8 @@ function Slider({ title, movies, selectMovie }: IProps) {
     setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
   };
   const toggleClickable = () => setIsClickable((prev) => !prev);
-  const onClickMovie = (item: IMovie) => {
-    selectMovie(item);
+  const onClickMovie = (item: IMovie, title: string) => {
+    selectMovie(item, title);
     navigate(`${process.env.PUBLIC_URL}/movies/${String(item.id)}`);
   };
 
@@ -114,27 +122,30 @@ function Slider({ title, movies, selectMovie }: IProps) {
           transition={{ type: "tween", duration: 1 }}
           key={index}
         >
-          {movies.slice(index * offset, index * offset + offset).map((item) => (
-            <Movie
-              layoutId={`${item.id}`}
-              key={item.id}
-              variants={movieVariants}
-              initial="initial"
-              whileHover="hover"
-              transition={{ type: "tween" }}
-              onClick={() => onClickMovie(item)}
-            >
-              <Img
-                src={makeImagePath(
-                  item.backdrop_path || item.poster_path,
-                  "w300"
-                )}
-              />
-              <Info variants={InfoVariant}>
-                <h3>{item.title}</h3>
-              </Info>
-            </Movie>
-          ))}
+          {movies
+            .slice(index * offset, index * offset + offset)
+            .map((item, i) => (
+              <Movie
+                layoutId={`${title}${item.id}`}
+                key={item.id}
+                variants={movieVariants}
+                initial="initial"
+                whileHover="hover"
+                transition={{ type: "tween" }}
+                onClick={() => onClickMovie(item, `${title}`)}
+              >
+                {ranking && <Popular>{i + 1 + index * offset}</Popular>}
+                <Img
+                  src={makeImagePath(
+                    item.backdrop_path || item.poster_path,
+                    "w300"
+                  )}
+                />
+                <Info variants={InfoVariant}>
+                  <h3>{item.title}</h3>
+                </Info>
+              </Movie>
+            ))}
         </Row>
       </AnimatePresence>
       <Button onClick={increaseIndex}>

@@ -9,6 +9,7 @@ export interface IMovie {
   overview: string;
   release_date: string;
   vote_average: number;
+  popularity?: number;
 }
 export interface IGetMovieResult {
   dates: {
@@ -33,5 +34,9 @@ export const getTopRatedMovies = async () => {
 };
 export const getDetailMovie = async (id: string) => {
   const response = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
+  return await response.json();
+};
+export const getPopularMovies = async () => {
+  const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
   return await response.json();
 };
