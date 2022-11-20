@@ -17,6 +17,9 @@ const Title = styled.h2`
   top: 210px;
   font-size: 1.7rem;
 `;
+const Vote = styled.span`
+  color: ${(props) => props.theme.yellow};
+`;
 const Info = styled.div`
   display: flex;
   padding: 0.8em 0.8em 0;
@@ -56,11 +59,11 @@ function MovieDetail({ id, selectedMovie }: IProps) {
             ? selectedMovie.release_date
             : data?.release_date || ""}
         </span>
-        <span>
+        <Vote>
           {selectedMovie
             ? selectedMovie.vote_average.toFixed(1)
             : data?.vote_average.toFixed(1) || ""}
-        </span>
+        </Vote>
       </Info>
       <Overview>
         {selectedMovie ? selectedMovie.overview : data?.overview || ""}

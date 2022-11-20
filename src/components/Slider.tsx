@@ -8,27 +8,24 @@ import { makeImagePath } from "utils";
 const Container = styled.div`
   position: relative;
   top: -5em;
+  height: 150px;
+  margin-bottom: 3em;
 `;
 const Title = styled.strong`
   font-size: 1.5rem;
-  margin-left: 0.5em;
+  margin: 12px;
 `;
-const Row = styled(motion.div)`
+const Row = styled(motion.ul)`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 5px;
   position: absolute;
-  z-index: 10;
   top: 32px;
-  width: 100%;
 `;
-const Movie = styled(motion.ul)<{ bgphoto: string }>`
+const Movie = styled(motion.li)`
   width: 100%;
-  height: 0;
-  padding-top: 56%;
-  background-image: url(${(props) => props.bgphoto});
-  background-size: cover;
-  background-position: center center;
+  height: 120px;
   cursor: pointer;
   &:first-child {
     transform-origin: center left;
@@ -37,7 +34,13 @@ const Movie = styled(motion.ul)<{ bgphoto: string }>`
     transform-origin: center right;
   }
 `;
-const Info = styled(motion.li)`
+const Img = styled.img`
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+const Info = styled(motion.div)`
   width: 100%;
   opacity: 0;
   padding: 0.5em;
@@ -47,7 +50,7 @@ const Info = styled(motion.li)`
 const Button = styled(motion.button)`
   position: absolute;
   color: white;
-  top: 50%;
+  top: calc(50% + 18px);
   transform: translateY(-50%);
   right: 12px;
   width: 30px;
@@ -74,7 +77,7 @@ const InfoVariant = {
 };
 
 interface IProps {
-  title: string;
+  title?: string;
   movies: IMovie[];
   selectMovie: (item: IMovie) => void;
 }
@@ -115,16 +118,18 @@ function Slider({ title, movies, selectMovie }: IProps) {
             <Movie
               layoutId={`${item.id}`}
               key={item.id}
-              bgphoto={makeImagePath(
-                item.backdrop_path || item.poster_path,
-                "w300"
-              )}
               variants={movieVariants}
               initial="initial"
               whileHover="hover"
               transition={{ type: "tween" }}
               onClick={() => onClickMovie(item)}
             >
+              <Img
+                src={makeImagePath(
+                  item.backdrop_path || item.poster_path,
+                  "w300"
+                )}
+              />
               <Info variants={InfoVariant}>
                 <h3>{item.title}</h3>
               </Info>
@@ -134,7 +139,7 @@ function Slider({ title, movies, selectMovie }: IProps) {
       </AnimatePresence>
       <Button onClick={increaseIndex}>
         <motion.svg
-          fill="rgba(255,255,255,0.3)"
+          fill="rgba(255,255,255,0.5)"
           whileHover={{ fill: "rgba(255,255,255,0.8)" }}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"

@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getNowPlayingMovies, IGetMovieResult, IMovie } from "api";
+import {
+  getTopRatedMovies,
+  getNowPlayingMovies,
+  IGetMovieResult,
+  IMovie,
+} from "api";
 import * as S from "styles/home";
 import Loader from "./Loader";
 import { makeImagePath } from "utils";
@@ -11,10 +16,15 @@ import MovieDetail from "./MovieDetail";
 
 function Home() {
   const { movieId } = useParams();
-  const { data, isLoading } = useQuery<IGetMovieResult>(
+  const { data: nowPlayingData, isLoading } = useQuery<IGetMovieResult>(
     ["movies", "nowPlaying"],
     getNowPlayingMovies
   );
+  const { data: topRatedData } = useQuery<IGetMovieResult>(
+    ["topRated"],
+    getTopRatedMovies
+  );
+
   const [selectedMovie, setSelectedMovie] = useState<IMovie>();
   const selectMovie = (item: IMovie) => {
     setSelectedMovie(item);
@@ -27,15 +37,24 @@ function Home() {
       ) : (
         <>
           <S.Banner
-            bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}
+            bgPhoto={makeImagePath(
+              nowPlayingData?.results[0].backdrop_path || ""
+            )}
           >
-            <S.Title>{data?.results[0].title}</S.Title>
-            <S.Overview>{data?.results[0].overview}</S.Overview>
+            <S.Title>{nowPlayingData?.results[0].title}</S.Title>
+            <S.Overview>{nowPlayingData?.results[0].overview}</S.Overview>
           </S.Banner>
-          {data && (
+          {nowPlayingData && (
             <Slider
               title="Now Playing"
-              movies={data?.results.slice(1)}
+              movies={nowPlayingData?.results.slice(1)}
+              selectMovie={selectMovie}
+            />
+          )}
+          {topRatedData && (
+            <Slider
+              title="Top Rated"
+              movies={topRatedData?.results}
               selectMovie={selectMovie}
             />
           )}

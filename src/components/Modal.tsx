@@ -19,7 +19,8 @@ const ModalBox = styled(motion.div)`
   position: relative;
   width: 500px;
   border-radius: 0.5em;
-  overflow: hidden;
+  max-height: 90vh;
+  overflow-y: auto;
   background-color: ${(props) => props.theme.black.lighter};
 `;
 

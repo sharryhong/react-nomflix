@@ -25,6 +25,12 @@ export const getNowPlayingMovies = async () => {
   );
   return await response.json();
 };
+export const getTopRatedMovies = async () => {
+  const response = await fetch(
+    `${BASE_URL}/movie/top_rated?api_key=${API_KEY}`
+  );
+  return await response.json();
+};
 export const getDetailMovie = async (id: string) => {
   const response = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
   return await response.json();

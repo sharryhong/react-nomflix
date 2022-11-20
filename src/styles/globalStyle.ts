@@ -30,7 +30,7 @@ body {
 	line-height: 1;
 	font-family: 'Noto Sans Mono', monospace, sans-serif;
 	color: ${(props) => props.theme.white.darker};
-	background-color: ${(props) => props.theme.black.darker};
+	background-color: ${(props) => props.theme.black.veryDark};
 }
 ol, ul {
 	list-style: none;
