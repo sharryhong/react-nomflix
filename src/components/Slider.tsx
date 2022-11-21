@@ -140,7 +140,7 @@ function Slider({ title, ranking, movies, selectMovie }: IProps) {
   return (
     <Container>
       <Title>{title}</Title>
-      {maxIndex && (
+      {maxIndex > 0 && (
         <PrevButton onClick={decreaseIndex}>
           <motion.svg
             fill="rgba(255,255,255,0.5)"
@@ -192,7 +192,7 @@ function Slider({ title, ranking, movies, selectMovie }: IProps) {
             ))}
         </Row>
       </AnimatePresence>
-      {maxIndex && (
+      {maxIndex > 0 && (
         <NextButton onClick={increaseIndex}>
           <motion.svg
             fill="rgba(255,255,255,0.5)"
