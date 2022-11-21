@@ -83,6 +83,7 @@ function Search() {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const keyword = searchParams.get("keyword");
+  const media = searchParams.get("media");
 
   const { data: movieData, isLoading } = useQuery<IGetMovieResult>(
     ["searchMovies", { keyword }],
@@ -104,9 +105,30 @@ function Search() {
 
   const [selectedMovie, setSelectedMovie] = useState<IMovie>();
   const [selectedTitle, setSelectedTitle] = useState<string>();
-  const selectMovie = (item: IMovie, title: string) => {
+
+  const selectMovieSlider = (item: IMovie, title: string) => {
     navigate(
-      `${process.env.PUBLIC_URL}/search/${String(item.id)}?keyword=${keyword}`
+      `${process.env.PUBLIC_URL}/search/${String(
+        item.id
+      )}?keyword=${keyword}&media=movie`
+    );
+    setSelectedMovie(item);
+    setSelectedTitle(title);
+  };
+  const selectTvSlider = (item: IMovie, title: string) => {
+    navigate(
+      `${process.env.PUBLIC_URL}/search/${String(
+        item.id
+      )}?keyword=${keyword}&media=tv`
+    );
+    setSelectedMovie(item);
+    setSelectedTitle(title);
+  };
+  const selectMulti = (item: IMovie, title: string) => {
+    navigate(
+      `${process.env.PUBLIC_URL}/search/${String(
+        item.id
+      )}?keyword=${keyword}&media=${item.media_type}`
     );
     setSelectedMovie(item);
     setSelectedTitle(title);
@@ -125,14 +147,14 @@ function Search() {
             <Slider
               title="Movies"
               movies={hasPoster(movieData)}
-              selectMovie={selectMovie}
+              selectMovie={selectMovieSlider}
             />
           ) : null}
           {tvData && hasPoster(tvData).length ? (
             <Slider
               title="TV Show"
               movies={hasPoster(tvData)}
-              selectMovie={selectMovie}
+              selectMovie={selectTvSlider}
             />
           ) : null}
           {multiData && hasPoster(multiData).length ? (
@@ -144,7 +166,7 @@ function Search() {
                   whileHover="hover"
                   key={item.id}
                   layoutId={`multi${item.id}`}
-                  onClick={() => selectMovie(item, "multi")}
+                  onClick={() => selectMulti(item, "multi")}
                 >
                   <Img
                     src={makeImagePath(
@@ -162,10 +184,10 @@ function Search() {
           ) : null}
           {id && (
             <Modal isShow={!!id} id={`${selectedTitle}${id}`}>
-              {selectedMovie?.title && (
+              {media?.includes("movie") && (
                 <MovieDetail id={id} selectedMovie={selectedMovie} />
               )}
-              {selectedMovie?.name && (
+              {media?.includes("tv") && (
                 <TvDetail id={id} selectedMovie={selectedMovie} />
               )}
             </Modal>
