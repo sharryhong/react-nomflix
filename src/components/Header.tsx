@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import * as S from "styles/header";
 import SearchForm from "./SearchForm";
+import { scrollToTop } from "utils";
 
 const headerVariants = {
   top: { backgroundColor: "rgba(0,0,0,0)" },
@@ -20,6 +21,7 @@ const logoVariants = {
 
 function Header() {
   const { pathname } = useLocation();
+
   const isLinkMovie = useMemo(() => {
     return pathname.includes("movies");
   }, [pathname]);
@@ -49,7 +51,10 @@ function Header() {
     >
       <S.Column>
         <h1>
-          <S.Home to={`${process.env.PUBLIC_URL}/movies`}>
+          <S.Home
+            to={`${process.env.PUBLIC_URL}/movies`}
+            onClick={() => scrollToTop()}
+          >
             <S.Logo
               variants={logoVariants}
               initial="normal"
@@ -62,11 +67,17 @@ function Header() {
           </S.Home>
         </h1>
         <S.Nav>
-          <S.NavItem to={`${process.env.PUBLIC_URL}/movies`}>
+          <S.NavItem
+            to={`${process.env.PUBLIC_URL}/movies`}
+            onClick={() => scrollToTop()}
+          >
             Movies
             {isLinkMovie && <S.Circle layoutId="circle" />}
           </S.NavItem>
-          <S.NavItem to={`${process.env.PUBLIC_URL}/tv`}>
+          <S.NavItem
+            to={`${process.env.PUBLIC_URL}/tv`}
+            onClick={() => scrollToTop()}
+          >
             TV Shows
             {isLinkTv && <S.Circle layoutId="circle" />}
           </S.NavItem>

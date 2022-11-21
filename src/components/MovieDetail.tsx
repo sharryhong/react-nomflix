@@ -13,7 +13,9 @@ function MovieDetail({ id, selectedMovie }: IProps) {
   return (
     <Detail
       photo={
-        selectedMovie ? selectedMovie.backdrop_path : data?.backdrop_path || ""
+        selectedMovie
+          ? selectedMovie.backdrop_path || selectedMovie.poster_path
+          : data?.backdrop_path || data?.poster_path || ""
       }
       title={selectedMovie ? selectedMovie.title : data?.title || ""}
       date={

@@ -73,19 +73,20 @@ function Tv() {
               selectMovie={selectMovie}
             />
           )}
-          {topRatedData && (
-            <Slider
-              title="Top Rated"
-              tvShow
-              movies={topRatedData?.results}
-              selectMovie={selectMovie}
-            />
-          )}
           {airingTodayData && (
             <Slider
               title="Airing Today"
               tvShow
               movies={airingTodayData?.results}
+              selectMovie={selectMovie}
+            />
+          )}
+          {topRatedData && (
+            <Slider
+              title="Top Rated"
+              ranking
+              tvShow
+              movies={topRatedData?.results}
               selectMovie={selectMovie}
             />
           )}

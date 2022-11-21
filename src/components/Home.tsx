@@ -71,17 +71,18 @@ function Home() {
               selectMovie={selectMovie}
             />
           )}
-          {topRatedData && (
-            <Slider
-              title="Top Rated"
-              movies={topRatedData?.results}
-              selectMovie={selectMovie}
-            />
-          )}
           {upcomingData && (
             <Slider
               title="Upcoming"
               movies={upcomingData?.results}
+              selectMovie={selectMovie}
+            />
+          )}
+          {topRatedData && (
+            <Slider
+              title="Top Rated"
+              ranking
+              movies={topRatedData?.results}
               selectMovie={selectMovie}
             />
           )}
