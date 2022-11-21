@@ -139,6 +139,7 @@ function Search() {
                   variants={movieVariants}
                   whileHover="hover"
                   key={item.id}
+                  layoutId={`multi${item.id}`}
                   onClick={() => selectMovie(item, "multi")}
                 >
                   <Img

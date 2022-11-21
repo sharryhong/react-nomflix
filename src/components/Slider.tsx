@@ -1,7 +1,6 @@
 import { IMovie } from "api";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { makeImagePath } from "utils";
 
