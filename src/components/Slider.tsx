@@ -50,21 +50,25 @@ const Info = styled(motion.div)`
 const Button = styled(motion.button)`
   position: absolute;
   color: white;
-  top: calc(50% + 18px);
+  top: calc(50% + 17px);
   transform: translateY(-50%);
-  z-index: 20;
-  width: 30px;
+  z-index: 60;
+  width: 2.5em;
+  height: 2.5em;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0.2em;
   svg {
+    width: 2em;
     filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
   }
 `;
 const PrevButton = styled(Button)`
-  left: 12px;
+  left: 0px;
 `;
 const NextButton = styled(Button)`
-  right: 12px;
+  right: 0px;
 `;
-const Popular = styled.span`
+const Ranking = styled.span`
   position: absolute;
   bottom: -15px;
   font-size: 7rem;
@@ -91,6 +95,7 @@ const movieVariants = {
   hover: {
     scale: 1.3,
     y: -50,
+    zIndex: 50,
     transition: { delay: 0.2, duration: 0.3, type: "tween" },
   },
 };
@@ -141,21 +146,13 @@ function Slider({ title, ranking, movies, selectMovie }: IProps) {
     <Container>
       <Title>{title}</Title>
       <PrevButton onClick={decreaseIndex}>
-        {/* <motion.svg
-          fill="rgba(255,255,255,0.5)"
-          whileHover={{ fill: "rgba(255,255,255,0.8)" }}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-        >
-          <path d="M0 256C0 397.4 114.6 512 256 512s256-114.6 256-256S397.4 0 256 0S0 114.6 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z" />
-        </motion.svg> */}
         <motion.svg
           fill="rgba(255,255,255,0.5)"
           whileHover={{ fill: "rgba(255,255,255,0.8)" }}
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
+          viewBox="0 0 384 512"
         >
-          <path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256S114.6 512 256 512s256-114.6 256-256zM271 135c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-87 87 87 87c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L167 273c-9.4-9.4-9.4-24.6 0-33.9L271 135z" />
+          <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 278.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
         </motion.svg>
       </PrevButton>
       <AnimatePresence
@@ -184,7 +181,7 @@ function Slider({ title, ranking, movies, selectMovie }: IProps) {
                 transition={{ type: "tween" }}
                 onClick={() => onClickMovie(item, `${title}`)}
               >
-                {ranking && <Popular>{i + 1 + index * offset}</Popular>}
+                {ranking && <Ranking>{i + 1 + index * offset}</Ranking>}
                 <Img
                   src={makeImagePath(
                     item.backdrop_path || item.poster_path,
@@ -203,9 +200,9 @@ function Slider({ title, ranking, movies, selectMovie }: IProps) {
           fill="rgba(255,255,255,0.5)"
           whileHover={{ fill: "rgba(255,255,255,0.8)" }}
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
+          viewBox="0 0 384 512"
         >
-          <path d="M0 256C0 397.4 114.6 512 256 512s256-114.6 256-256S397.4 0 256 0S0 114.6 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z" />
+          <path d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
         </motion.svg>
       </NextButton>
     </Container>

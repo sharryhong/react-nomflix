@@ -7,7 +7,7 @@ export const Container = styled(motion.header)`
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  z-index: 10;
+  z-index: 300;
   top: 0;
   width: 100%;
   padding: 1.25rem 2.5rem;
