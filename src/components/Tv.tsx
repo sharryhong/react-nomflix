@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { IGetMovieResult, getOnTheAirTVs, ITv } from "api";
+import { IGetMovieResult, getOnTheAirTVs, IMovie } from "api";
 import * as S from "styles/home";
 import Slider from "./Slider";
 import Loader from "./Loader";
@@ -7,7 +7,7 @@ import { makeImagePath } from "utils";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import Modal from "./Modal";
-import MovieDetail from "./MovieDetail";
+import TvDetail from "./TvDetail";
 
 function Tv() {
   const { tvId } = useParams();
@@ -17,9 +17,9 @@ function Tv() {
   );
   console.log(onTheAirData);
 
-  const [selectedMovie, setSelectedMovie] = useState<ITv>();
+  const [selectedMovie, setSelectedMovie] = useState<IMovie>();
   const [selectedTitle, setSelectedTitle] = useState<string>();
-  const selectMovie = (item: ITv, title: string) => {
+  const selectMovie = (item: IMovie, title: string) => {
     setSelectedMovie(item);
     setSelectedTitle(title);
   };
@@ -48,7 +48,7 @@ function Tv() {
           )}
           {tvId && (
             <Modal isShow={!!tvId} id={`${selectedTitle}${tvId}`}>
-              <MovieDetail id={tvId} selectedMovie={selectedMovie} />
+              <TvDetail id={tvId} selectedMovie={selectedMovie} />
             </Modal>
           )}
         </>

@@ -1,4 +1,4 @@
-import { getDetailMovie, IMovie } from "api";
+import { getDetailTv, IMovie } from "api";
 import { useQuery } from "@tanstack/react-query";
 import Detail from "./Detail";
 
@@ -7,17 +7,19 @@ interface IProps {
   selectedMovie?: IMovie;
 }
 
-function MovieDetail({ id, selectedMovie }: IProps) {
-  const { data } = useQuery<IMovie>(["movieDetail"], () => getDetailMovie(id));
+function TvDetail({ id, selectedMovie }: IProps) {
+  const { data } = useQuery<IMovie>(["tvDetail"], () => getDetailTv(id));
 
   return (
     <Detail
       photo={
         selectedMovie ? selectedMovie.backdrop_path : data?.backdrop_path || ""
       }
-      title={selectedMovie ? selectedMovie.title : data?.title || ""}
+      title={selectedMovie ? selectedMovie.name : data?.name || ""}
       date={
-        selectedMovie ? selectedMovie.release_date : data?.release_date || ""
+        selectedMovie
+          ? selectedMovie.first_air_date
+          : data?.first_air_date || ""
       }
       voteAverage={
         selectedMovie
@@ -29,4 +31,4 @@ function MovieDetail({ id, selectedMovie }: IProps) {
   );
 }
 
-export default MovieDetail;
+export default TvDetail;
