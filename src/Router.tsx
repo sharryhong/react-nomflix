@@ -12,6 +12,7 @@ function router() {
         element={<Home />}
       />
       <Route path={`${process.env.PUBLIC_URL}/tv`} element={<Tv />} />
+      <Route path={`${process.env.PUBLIC_URL}/tv/:tvId`} element={<Tv />} />
       <Route path={`${process.env.PUBLIC_URL}/search`} element={<Search />} />
     </Routes>
   );

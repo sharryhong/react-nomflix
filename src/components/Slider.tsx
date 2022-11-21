@@ -56,9 +56,9 @@ const Button = styled(motion.button)`
   width: 2.5em;
   height: 2.5em;
   background: rgba(0, 0, 0, 0.5);
-  border-radius: 0.2em;
+  border-radius: 50%;
   svg {
-    width: 2em;
+    width: 1.85em;
     filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
   }
 `;
@@ -109,11 +109,12 @@ const InfoVariant = {
 interface IProps {
   title?: string;
   ranking?: boolean;
+  tvShow?: boolean;
   movies: IMovie[];
-  selectMovie: (item: IMovie, title: string) => void;
+  selectMovie?: (item: IMovie, title: string) => void;
 }
 
-function Slider({ title, ranking, movies, selectMovie }: IProps) {
+function Slider({ title, ranking, tvShow, movies, selectMovie }: IProps) {
   const navigate = useNavigate();
 
   const offset = 6;
@@ -138,8 +139,10 @@ function Slider({ title, ranking, movies, selectMovie }: IProps) {
   };
   const toggleClickable = () => setIsClickable((prev) => !prev);
   const onClickMovie = (item: IMovie, title: string) => {
-    selectMovie(item, title);
-    navigate(`${process.env.PUBLIC_URL}/movies/${String(item.id)}`);
+    selectMovie && selectMovie(item, title);
+    tvShow
+      ? navigate(`${process.env.PUBLIC_URL}/tv/${String(item.id)}`)
+      : navigate(`${process.env.PUBLIC_URL}/movies/${String(item.id)}`);
   };
 
   return (
@@ -189,7 +192,7 @@ function Slider({ title, ranking, movies, selectMovie }: IProps) {
                   )}
                 />
                 <Info variants={InfoVariant}>
-                  <h3>{item.title}</h3>
+                  <h3>{item.title || item.name}</h3>
                 </Info>
               </Movie>
             ))}

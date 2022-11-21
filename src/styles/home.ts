@@ -19,5 +19,5 @@ export const Title = styled.h2`
 `;
 export const Overview = styled.p`
   font-size: 1.4rem;
-  width: 50%;
+  width: 70%;
 `;

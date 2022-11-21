@@ -1,15 +1,21 @@
 const API_KEY = process.env.REACT_APP_API_KEY;
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-export interface IMovie {
+interface IContent {
   id: number;
   backdrop_path: string;
   poster_path: string;
-  title: string;
   overview: string;
-  release_date: string;
   vote_average: number;
   popularity?: number;
+}
+export interface IMovie extends IContent {
+  title: string;
+  release_date: string;
+}
+export interface ITv extends IContent {
+  name: string;
+  first_air_date: string;
 }
 export interface IGetMovieResult {
   dates: {
@@ -42,5 +48,10 @@ export const getPopularMovies = async () => {
 };
 export const getUpcomingMovies = async () => {
   const response = await fetch(`${BASE_URL}/movie/upcoming?api_key=${API_KEY}`);
+  return await response.json();
+};
+
+export const getOnTheAirTVs = async () => {
+  const response = await fetch(`${BASE_URL}/tv/on_the_air?api_key=${API_KEY}`);
   return await response.json();
 };
