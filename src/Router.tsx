@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/Home";
 import Search from "./components/Search";
 import Tv from "./components/Tv";
@@ -6,7 +6,11 @@ import Tv from "./components/Tv";
 function router() {
   return (
     <Routes>
-      <Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
+      <Route
+        path={`${process.env.PUBLIC_URL}/`}
+        element={<Navigate replace to={`${process.env.PUBLIC_URL}/movies`} />}
+      />
+      <Route path={`${process.env.PUBLIC_URL}/movies`} element={<Home />} />
       <Route
         path={`${process.env.PUBLIC_URL}/movies/:movieId`}
         element={<Home />}

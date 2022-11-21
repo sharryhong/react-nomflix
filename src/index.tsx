@@ -7,6 +7,7 @@ import { ThemeProvider } from "styled-components";
 import App from "./App";
 import { theme } from "./styles/theme";
 import GlobalStyle from "./styles/globalStyle";
+import ScrollToTop from "components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ root.render(
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
             <GlobalStyle />
+            <ScrollToTop />
             <App />
           </ThemeProvider>
         </QueryClientProvider>

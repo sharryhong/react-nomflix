@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { motion, useAnimationControls, useScroll } from "framer-motion";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -20,6 +20,13 @@ const logoVariants = {
 
 function Header() {
   const { pathname } = useLocation();
+  const isLinkMovie = useMemo(() => {
+    return pathname.includes("movies");
+  }, [pathname]);
+  const isLinkTv = useMemo(() => {
+    return pathname.includes("tv");
+  }, [pathname]);
+
   const headerControls = useAnimationControls();
   const { scrollY } = useScroll();
 
@@ -42,7 +49,7 @@ function Header() {
     >
       <S.Column>
         <h1>
-          <S.Home to={`${process.env.PUBLIC_URL}`}>
+          <S.Home to={`${process.env.PUBLIC_URL}/movies`}>
             <S.Logo
               variants={logoVariants}
               initial="normal"
@@ -55,16 +62,13 @@ function Header() {
           </S.Home>
         </h1>
         <S.Nav>
-          <S.NavItem to={`${process.env.PUBLIC_URL}`}>
+          <S.NavItem to={`${process.env.PUBLIC_URL}/movies`}>
             Movies
-            {(pathname === `${process.env.PUBLIC_URL}` ||
-              `${process.env.PUBLIC_URL}/`) && <S.Circle layoutId="circle" />}
+            {isLinkMovie && <S.Circle layoutId="circle" />}
           </S.NavItem>
           <S.NavItem to={`${process.env.PUBLIC_URL}/tv`}>
             TV Shows
-            {pathname === `${process.env.PUBLIC_URL}/tv` && (
-              <S.Circle layoutId="circle" />
-            )}
+            {isLinkTv && <S.Circle layoutId="circle" />}
           </S.NavItem>
         </S.Nav>
       </S.Column>

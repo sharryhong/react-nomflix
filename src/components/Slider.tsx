@@ -63,10 +63,10 @@ const Button = styled(motion.button)`
   }
 `;
 const PrevButton = styled(Button)`
-  left: 0px;
+  left: 0.5em;
 `;
 const NextButton = styled(Button)`
-  right: 0px;
+  right: 0.5em;
 `;
 const Ranking = styled.span`
   position: absolute;

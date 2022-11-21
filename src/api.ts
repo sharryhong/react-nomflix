@@ -52,6 +52,20 @@ export const getOnTheAirTVs = async () => {
   const response = await fetch(`${BASE_URL}/tv/on_the_air?api_key=${API_KEY}`);
   return await response.json();
 };
+export const getPopularTVs = async () => {
+  const response = await fetch(`${BASE_URL}/tv/popular?api_key=${API_KEY}`);
+  return await response.json();
+};
+export const getTopRatedTVs = async () => {
+  const response = await fetch(`${BASE_URL}/tv/top_rated?api_key=${API_KEY}`);
+  return await response.json();
+};
+export const getAiringTodayTVs = async () => {
+  const response = await fetch(
+    `${BASE_URL}/tv/airing_today?api_key=${API_KEY}`
+  );
+  return await response.json();
+};
 export const getDetailTv = async (id: string) => {
   const response = await fetch(`${BASE_URL}/tv/${id}?api_key=${API_KEY}`);
   return await response.json();
