@@ -15,13 +15,17 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { makeImagePath } from "utils";
+import TvDetail from "components/TvDetail";
 
 const Container = styled.div`
   padding-top: 5em;
 `;
-const Keyword = styled.h2`
+const Keyword = styled.div`
   margin: 1.2em 0.6em;
-  color: ${(props) => props.theme.red};
+  color: #888;
+  strong {
+    color: ${(props) => props.theme.red};
+  }
 `;
 const Title = styled.strong`
   font-size: 1.5rem;
@@ -117,21 +121,21 @@ function Search() {
           <Keyword>
             Search Keyword: <strong>&lsquo;{keyword}&rsquo;</strong>
           </Keyword>
-          {movieData && movieData.results.length ? (
+          {movieData && hasPoster(movieData).length ? (
             <Slider
               title="Movies"
               movies={hasPoster(movieData)}
               selectMovie={selectMovie}
             />
           ) : null}
-          {tvData && tvData.results.length ? (
+          {tvData && hasPoster(tvData).length ? (
             <Slider
               title="TV Show"
               movies={hasPoster(tvData)}
               selectMovie={selectMovie}
             />
           ) : null}
-          {multiData && multiData.results.length ? (
+          {multiData && hasPoster(multiData).length ? (
             <Content>
               <Title>Multi Search Result</Title>
               {hasPoster(multiData).map((item) => (
@@ -158,7 +162,12 @@ function Search() {
           ) : null}
           {id && (
             <Modal isShow={!!id} id={`${selectedTitle}${id}`}>
-              <MovieDetail id={id} selectedMovie={selectedMovie} />
+              {selectedMovie?.title && (
+                <MovieDetail id={id} selectedMovie={selectedMovie} />
+              )}
+              {selectedMovie?.name && (
+                <TvDetail id={id} selectedMovie={selectedMovie} />
+              )}
             </Modal>
           )}
         </>

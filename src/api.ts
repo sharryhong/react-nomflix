@@ -1,6 +1,10 @@
 const API_KEY = process.env.REACT_APP_API_KEY;
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
+interface IGenres {
+  id: number;
+  name: string;
+}
 export interface IMovie {
   id: number;
   backdrop_path: string;
@@ -13,6 +17,9 @@ export interface IMovie {
   name?: string;
   first_air_date?: string;
   media_type?: string;
+  genres?: IGenres[];
+  origin_country?: string[];
+  original_language?: string;
 }
 
 export interface IGetMovieResult {

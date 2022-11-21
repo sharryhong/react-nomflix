@@ -27,6 +27,12 @@ function MovieDetail({ id, selectedMovie }: IProps) {
           : data?.vote_average.toFixed(1) || ""
       }
       overview={selectedMovie ? selectedMovie.overview : data?.overview || ""}
+      genres={data?.genres?.map((item) => item.name).join(", ")}
+      country={
+        data?.origin_country?.length
+          ? data?.origin_country?.join(", ")
+          : data?.original_language
+      }
     />
   );
 }
