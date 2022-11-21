@@ -12,6 +12,7 @@ export interface IMovie {
   release_date?: string;
   name?: string;
   first_air_date?: string;
+  media_type?: string;
 }
 
 export interface IGetMovieResult {
@@ -68,5 +69,24 @@ export const getAiringTodayTVs = async () => {
 };
 export const getDetailTv = async (id: string) => {
   const response = await fetch(`${BASE_URL}/tv/${id}?api_key=${API_KEY}`);
+  return await response.json();
+};
+
+export const getSearchMovies = async (query: string) => {
+  const response = await fetch(
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`
+  );
+  return await response.json();
+};
+export const getSearchTVs = async (query: string) => {
+  const response = await fetch(
+    `${BASE_URL}/search/tv?api_key=${API_KEY}&query=${query}`
+  );
+  return await response.json();
+};
+export const getSearchMulti = async (query: string) => {
+  const response = await fetch(
+    `${BASE_URL}/search/multi?api_key=${API_KEY}&query=${query}`
+  );
   return await response.json();
 };

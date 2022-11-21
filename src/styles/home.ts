@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  position: relative;
+  top: -5em;
+`;
 export const Banner = styled.div<{ bgPhoto: string }>`
   display: flex;
   flex-direction: column;

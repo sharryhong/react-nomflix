@@ -8,16 +8,18 @@ import {
   getAiringTodayTVs,
 } from "api";
 import * as S from "styles/home";
-import Slider from "./Slider";
-import Loader from "./Loader";
+import Slider from "../Slider";
+import Loader from "../Loader";
 import { makeImagePath } from "utils";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import Modal from "./Modal";
-import TvDetail from "./TvDetail";
+import { useNavigate, useParams } from "react-router-dom";
+import Modal from "../Modal";
+import TvDetail from "../TvDetail";
 
 function Tv() {
+  const navigate = useNavigate();
   const { tvId } = useParams();
+
   const { data: onTheAirData, isLoading } = useQuery<IGetMovieResult>(
     ["onTheAir"],
     getOnTheAirTVs
@@ -38,12 +40,13 @@ function Tv() {
   const [selectedMovie, setSelectedMovie] = useState<IMovie>();
   const [selectedTitle, setSelectedTitle] = useState<string>();
   const selectMovie = (item: IMovie, title: string) => {
+    navigate(`${process.env.PUBLIC_URL}/tv/${String(item.id)}`);
     setSelectedMovie(item);
     setSelectedTitle(title);
   };
 
   return (
-    <S.Container>
+    <>
       {isLoading ? (
         <Loader />
       ) : (
@@ -56,40 +59,38 @@ function Tv() {
             <S.Title>{onTheAirData?.results[0].name}</S.Title>
             <S.Overview>{onTheAirData?.results[0].overview}</S.Overview>
           </S.Banner>
-          {onTheAirData && (
-            <Slider
-              title="On The Air"
-              tvShow
-              movies={onTheAirData?.results.slice(1)}
-              selectMovie={selectMovie}
-            />
-          )}
-          {popularData && (
-            <Slider
-              title="Popular"
-              ranking
-              tvShow
-              movies={popularData?.results}
-              selectMovie={selectMovie}
-            />
-          )}
-          {airingTodayData && (
-            <Slider
-              title="Airing Today"
-              tvShow
-              movies={airingTodayData?.results}
-              selectMovie={selectMovie}
-            />
-          )}
-          {topRatedData && (
-            <Slider
-              title="Top Rated"
-              ranking
-              tvShow
-              movies={topRatedData?.results}
-              selectMovie={selectMovie}
-            />
-          )}
+          <S.Container>
+            {onTheAirData && (
+              <Slider
+                title="On The Air"
+                movies={onTheAirData?.results.slice(1)}
+                selectMovie={selectMovie}
+              />
+            )}
+            {popularData && (
+              <Slider
+                title="Popular"
+                ranking
+                movies={popularData?.results}
+                selectMovie={selectMovie}
+              />
+            )}
+            {airingTodayData && (
+              <Slider
+                title="Airing Today"
+                movies={airingTodayData?.results}
+                selectMovie={selectMovie}
+              />
+            )}
+            {topRatedData && (
+              <Slider
+                title="Top Rated"
+                ranking
+                movies={topRatedData?.results}
+                selectMovie={selectMovie}
+              />
+            )}
+          </S.Container>
           {tvId && (
             <Modal isShow={!!tvId} id={`${selectedTitle}${tvId}`}>
               <TvDetail id={tvId} selectedMovie={selectedMovie} />
@@ -97,7 +98,7 @@ function Tv() {
           )}
         </>
       )}
-    </S.Container>
+    </>
   );
 }
 

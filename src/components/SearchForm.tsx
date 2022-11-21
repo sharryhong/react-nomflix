@@ -12,7 +12,7 @@ function SearchForm() {
   const navigate = useNavigate();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const searchControls = useAnimationControls();
-  const { register, handleSubmit, setFocus } = useForm<IForm>();
+  const { register, handleSubmit, setFocus, setValue } = useForm<IForm>();
   const toggleSearch = () => {
     setIsSearchOpen((prev) => !prev);
     isSearchOpen
@@ -21,6 +21,7 @@ function SearchForm() {
   };
   const onValid = ({ keyword }: IForm) => {
     navigate(`${process.env.PUBLIC_URL}/search?keyword=${keyword}`);
+    setValue("keyword", "");
   };
 
   useEffect(() => {

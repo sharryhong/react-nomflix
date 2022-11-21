@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Home from "./components/Home";
-import Search from "./components/Search";
-import Tv from "./components/Tv";
+import Home from "./components/pages/Home";
+import Search from "./components/pages/Search";
+import Tv from "./components/pages/Tv";
 
 function router() {
   return (
@@ -18,6 +18,10 @@ function router() {
       <Route path={`${process.env.PUBLIC_URL}/tv`} element={<Tv />} />
       <Route path={`${process.env.PUBLIC_URL}/tv/:tvId`} element={<Tv />} />
       <Route path={`${process.env.PUBLIC_URL}/search`} element={<Search />} />
+      <Route
+        path={`${process.env.PUBLIC_URL}/search/:id`}
+        element={<Search />}
+      />
     </Routes>
   );
 }

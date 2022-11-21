@@ -7,13 +7,12 @@ import { makeImagePath } from "utils";
 
 const Container = styled.div`
   position: relative;
-  top: -5em;
   height: 150px;
   margin-bottom: 3em;
 `;
 const Title = styled.strong`
   font-size: 1.5rem;
-  margin: 12px;
+  margin: 0.6em;
 `;
 const Row = styled(motion.ul)`
   width: 100%;
@@ -109,14 +108,11 @@ const InfoVariant = {
 interface IProps {
   title?: string;
   ranking?: boolean;
-  tvShow?: boolean;
   movies: IMovie[];
   selectMovie?: (item: IMovie, title: string) => void;
 }
 
-function Slider({ title, ranking, tvShow, movies, selectMovie }: IProps) {
-  const navigate = useNavigate();
-
+function Slider({ title, ranking, movies, selectMovie }: IProps) {
   const offset = 6;
   const totalMovies = movies.length;
   const maxIndex = Math.floor(totalMovies / offset) - 1;
@@ -140,9 +136,6 @@ function Slider({ title, ranking, tvShow, movies, selectMovie }: IProps) {
   const toggleClickable = () => setIsClickable((prev) => !prev);
   const onClickMovie = (item: IMovie, title: string) => {
     selectMovie && selectMovie(item, title);
-    tvShow
-      ? navigate(`${process.env.PUBLIC_URL}/tv/${String(item.id)}`)
-      : navigate(`${process.env.PUBLIC_URL}/movies/${String(item.id)}`);
   };
 
   return (
