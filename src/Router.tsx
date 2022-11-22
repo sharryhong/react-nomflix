@@ -1,3 +1,4 @@
+import PageNotFound from "components/pages/PageNotFound";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/pages/Home";
 import Search from "./components/pages/Search";
@@ -22,6 +23,8 @@ function router() {
         path={`${process.env.PUBLIC_URL}/search/:id`}
         element={<Search />}
       />
+      <Route path="/404" element={<PageNotFound />} />
+      <Route path="*" element={<Navigate replace to="/404" />} />
     </Routes>
   );
 }
