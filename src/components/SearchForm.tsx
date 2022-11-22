@@ -20,7 +20,7 @@ function SearchForm() {
       : searchControls.start({ scaleX: 1 });
   };
   const onValid = ({ keyword }: IForm) => {
-    navigate(`${process.env.PUBLIC_URL}/search?keyword=${keyword}`);
+    navigate(`/search?keyword=${keyword}`);
     setValue("keyword", "");
   };
 

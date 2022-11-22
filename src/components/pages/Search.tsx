@@ -107,28 +107,18 @@ function Search() {
   const [selectedTitle, setSelectedTitle] = useState<string>();
 
   const selectMovieSlider = (item: IMovie, title: string) => {
-    navigate(
-      `${process.env.PUBLIC_URL}/search/${String(
-        item.id
-      )}?keyword=${keyword}&media=movie`
-    );
+    navigate(`/search/${String(item.id)}?keyword=${keyword}&media=movie`);
     setSelectedMovie(item);
     setSelectedTitle(title);
   };
   const selectTvSlider = (item: IMovie, title: string) => {
-    navigate(
-      `${process.env.PUBLIC_URL}/search/${String(
-        item.id
-      )}?keyword=${keyword}&media=tv`
-    );
+    navigate(`/search/${String(item.id)}?keyword=${keyword}&media=tv`);
     setSelectedMovie(item);
     setSelectedTitle(title);
   };
   const selectMulti = (item: IMovie, title: string) => {
     navigate(
-      `${process.env.PUBLIC_URL}/search/${String(
-        item.id
-      )}?keyword=${keyword}&media=${item.media_type}`
+      `/search/${String(item.id)}?keyword=${keyword}&media=${item.media_type}`
     );
     setSelectedMovie(item);
     setSelectedTitle(title);

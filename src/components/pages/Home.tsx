@@ -39,7 +39,7 @@ function Home() {
   const [selectedMovie, setSelectedMovie] = useState<IMovie>();
   const [selectedTitle, setSelectedTitle] = useState<string>();
   const selectMovie = (item: IMovie, title: string) => {
-    navigate(`${process.env.PUBLIC_URL}/movies/${String(item.id)}`);
+    navigate(`/movies/${String(item.id)}`);
     setSelectedMovie(item);
     setSelectedTitle(title);
   };

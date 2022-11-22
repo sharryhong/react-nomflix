@@ -51,10 +51,7 @@ function Header() {
     >
       <S.Column>
         <h1>
-          <S.Home
-            to={`${process.env.PUBLIC_URL}/movies`}
-            onClick={() => scrollToTop()}
-          >
+          <S.Home to={`/movies`} onClick={() => scrollToTop()}>
             <S.Logo
               variants={logoVariants}
               initial="normal"
@@ -67,17 +64,11 @@ function Header() {
           </S.Home>
         </h1>
         <S.Nav>
-          <S.NavItem
-            to={`${process.env.PUBLIC_URL}/movies`}
-            onClick={() => scrollToTop()}
-          >
+          <S.NavItem to={`/movies`} onClick={() => scrollToTop()}>
             Movies
             {isLinkMovie && <S.Circle layoutId="circle" />}
           </S.NavItem>
-          <S.NavItem
-            to={`${process.env.PUBLIC_URL}/tv`}
-            onClick={() => scrollToTop()}
-          >
+          <S.NavItem to={`/tv`} onClick={() => scrollToTop()}>
             TV Shows
             {isLinkTv && <S.Circle layoutId="circle" />}
           </S.NavItem>

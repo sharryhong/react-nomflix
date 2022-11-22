@@ -40,7 +40,7 @@ function Tv() {
   const [selectedMovie, setSelectedMovie] = useState<IMovie>();
   const [selectedTitle, setSelectedTitle] = useState<string>();
   const selectMovie = (item: IMovie, title: string) => {
-    navigate(`${process.env.PUBLIC_URL}/tv/${String(item.id)}`);
+    navigate(`/tv/${String(item.id)}`);
     setSelectedMovie(item);
     setSelectedTitle(title);
   };
